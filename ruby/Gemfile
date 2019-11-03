@@ -68,3 +68,7 @@ gem 'graphiql-rails', group: :development
 
 # Add bcrypt for password hashing
 gem 'bcrypt', '3.1.13'
+
+# Add support for filtering results
+gem 'search_object', '1.2.3'
+gem 'search_object_graphql', '0.3'
