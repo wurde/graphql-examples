@@ -65,3 +65,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'graphql', '1.9.15'
 
 gem 'graphiql-rails', group: :development
+
+# Add bcrypt for password hashing
+gem 'bcrypt', '3.1.13'
