@@ -3,7 +3,7 @@ from graphene_django import DjangoObjectType
 
 from users.schema import UserType
 
-from ..models import Link, Vote
+from .models import Link, Vote
 
 # 
 # Define type classes
@@ -14,11 +14,20 @@ class LinkType(DjangoObjectType):
         model = Link
 
 
+class VoteType(DjangoObjectType):
+    class Meta:
+        model = Vote
+
+
 class Query(graphene.ObjectType):
     links = graphene.List(LinkType)
+    votes = graphene.List(VoteType)
 
     def resolve_links(self, info, **kwargs):
         return Link.objects.all()
+
+    def resolve_votes(self, info, **kwargs):
+        return Vote.objects.all()
 
 #
 # Define mutation classes.
