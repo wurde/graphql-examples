@@ -3,9 +3,9 @@ from graphene_django import DjangoObjectType
 
 from .models import Link
 
-#
-# Define query classes.
-#
+# 
+# Define type classes
+# 
 
 class LinkType(DjangoObjectType):
     class Meta:
