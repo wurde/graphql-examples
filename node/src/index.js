@@ -39,7 +39,7 @@ const resolvers = {
     allLinks: (root, args, context, info) => {
       return context.prisma.links()
     },
-    findLink: (_, args) => links.filter(link =>  link.id === parseInt(args.id))[0]
+    findLink: (_, args, context) => links.filter(link =>  link.id === parseInt(args.id))[0]
   },
   Mutation: {
     createLink: (root, args, context) => {
@@ -79,6 +79,7 @@ const resolvers = {
 const server = new GraphQLServer({
   typeDefs: path.resolve(path.join(__dirname, 'schema.graphql')),
   resolvers,
+  context: { prisma },
 })
 
 /**
