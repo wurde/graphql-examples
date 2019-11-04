@@ -1,6 +1,7 @@
 type Query {
   info: String!
   allLinks: [Link!]!
+  allUsers: [User!]!
   findLink(id: ID!): Link
 }
 
