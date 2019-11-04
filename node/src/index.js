@@ -4,6 +4,7 @@
  * Dependencies
  */
 
+const path = require('path')
 const { GraphQLServer } = require('graphql-yoga')
 
 /**
@@ -27,23 +28,6 @@ let links = [{
 }]
 
 /**
- * Define types
- */
-
-const typeDefs = `
-type Query {
-  info: String!
-  feed: [Link!]!
-}
-
-type Link {
-  id: ID!
-  description: String!
-  url: String!
-}
-`
-
-/**
  * Define resolvers
  */
 
@@ -64,7 +48,7 @@ const resolvers = {
  */
 
 const server = new GraphQLServer({
-  typeDefs,
+  typeDefs: path.resolve(path.join(__dirname, 'schema.graphql')),
   resolvers,
 })
 
