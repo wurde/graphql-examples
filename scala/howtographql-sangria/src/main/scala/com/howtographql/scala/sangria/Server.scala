@@ -12,7 +12,6 @@ import scala.concurrent.Await
 import scala.language.postfixOps
 
 object Server extends App {
-
   val PORT = 8080
 
   implicit val actorSystem = ActorSystem("graphql-server")
