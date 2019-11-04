@@ -79,7 +79,12 @@ const resolvers = {
 const server = new GraphQLServer({
   typeDefs: path.resolve(path.join(__dirname, 'schema.graphql')),
   resolvers,
-  context: { prisma },
+  context: request => {
+    return {
+      ...request,
+      prisma,
+    }
+  },
 })
 
 /**
