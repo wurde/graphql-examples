@@ -26,6 +26,7 @@ let links = [{
   url: 'www.andybettisworth.com',
   description: 'Personal website of Andy Bettisworth.'
 }]
+let linkID = links.length
 
 /**
  * Define resolvers
@@ -34,16 +35,33 @@ let links = [{
 const resolvers = {
   Query: {
     info: () => `This is the API of a Hackernews Clone`,
-    feed: () => links
+    allLinks: () => links,
+    findLink: (_, args) => links.filter(link =>  link.id === parseInt(args.id))[0]
   },
   Mutation: {
-    post: (_, args) => {
+    createLink: (_, args) => {
       const link = {
-        id: links.length,
+        id: linkID++,
         description: args.description,
         url: args.url,
       }
       links.push(link)
+      return link
+    },
+    updateLink: (_, args) => {
+      links = links.map(link => {
+        if (link.id === parseInt(args.id)) {
+          if (args.description) link.description = args.description
+          if (args.url) link.url = args.url
+        }
+        return link
+      })
+      const link = links.filter(link => link.id === parseInt(args.id))[0]
+      return link
+    },
+    deleteLink: (_, args) => {
+      const link = links.filter(link => link.id === parseInt(args.id))[0]
+      links = links.filter(link => link.id !== parseInt(args.id))
       return link
     }
   },
