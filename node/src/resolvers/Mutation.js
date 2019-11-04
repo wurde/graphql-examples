@@ -8,10 +8,10 @@ const getUserId = require('../helpers/getUserId.js')
 const { APP_SECRET } = require('../config/secrets')
 
 /**
- * Define resolvers
+ * Define and export resolvers
  */
 
-async function signup(parent, args, context, info) {
+exports.signup = async (parent, args, context, _) => {
   const password = await bcrypt.hash(args.password, 10)
   const user = await context.prisma.createUser({ ...args, password })
   const token = jwt.sign({ userId: user.id }, APP_SECRET)
@@ -22,7 +22,7 @@ async function signup(parent, args, context, info) {
   }
 }
 
-async function login(parent, args, context, info) {
+exports.login = async (parent, args, context, _) => {
   const user = await context.prisma.user({ email: args.email })
   if (!user) {
     throw new Error('No such user found')
@@ -41,8 +41,9 @@ async function login(parent, args, context, info) {
   }
 }
 
-function post(parent, args, context, info) {
+exports.createLink = (parent, args, context) => {
   const userId = getUserId(context)
+
   return context.prisma.createLink({
     url: args.url,
     description: args.description,
@@ -50,12 +51,20 @@ function post(parent, args, context, info) {
   })
 }
 
-/**
- * Export resolvers
- */
+exports.updateLink = (parent, args) => {
+  links = links.map(link => {
+    if (link.id === parseInt(args.id)) {
+      if (args.description) link.description = args.description
+      if (args.url) link.url = args.url
+    }
+    return link
+  })
+  const link = links.filter(link => link.id === parseInt(args.id))[0]
+  return { id: 0, url: 'TODO updateLink', description: 'Pending' }
+}
 
-module.exports = {
-  signup,
-  login,
-  post,
+exports.deleteLink = (parent, args) => {
+  const link = links.filter(link => link.id === parseInt(args.id))[0]
+  links = links.filter(link => link.id !== parseInt(args.id))
+  return { id: 0, url: 'TODO deleteLink', description: 'Pending' }
 }

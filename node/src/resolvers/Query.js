@@ -1,15 +1,16 @@
 /**
- * Define resolvers
+ * Define and export resolvers
  */
 
-function feed(parent, args, context, info) {
+exports.info = () => {
+  return 'This is the API of a Hackernews Clone'
+}
+
+exports.allLinks = (parent, args, context) => {
   return context.prisma.links()
 }
 
-/**
- * Export resolvers
- */
-
-module.exports = {
-  feed,
+exports.findLink = (parent, args, context) => {
+  // return links.filter(link => link.id === parseInt(args.id))[0]
+  return 'TODO findLink'
 }

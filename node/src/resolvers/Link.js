@@ -1,15 +1,19 @@
 /**
- * Define resolvers
+ * Define and export resolvers
  */
 
-function postedBy(parent, args, context) {
-  return context.prisma.link({ id: parent.id }).postedBy()
+exports.id = (parent) => {
+  return parent.id
 }
 
-/**
- * Export resolvers
- */
+exports.description = (parent) => {
+  return parent.description
+}
 
-module.exports = {
-  postedBy,
+exports.url = (parent) => {
+  return parent.url
+}
+
+exports.postedBy = (parent, _, context) => {
+  return context.prisma.link({ id: parent.id }).postedBy()
 }
