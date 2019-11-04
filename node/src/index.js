@@ -22,7 +22,7 @@ let links = [{
   url: 'www.howtographql.com',
   description: 'Fullstack tutorial for GraphQL.'
 }, {
-  id: 0,
+  id: 1,
   url: 'www.andybettisworth.com',
   description: 'Personal website of Andy Bettisworth.'
 }]
@@ -35,6 +35,17 @@ const resolvers = {
   Query: {
     info: () => `This is the API of a Hackernews Clone`,
     feed: () => links
+  },
+  Mutation: {
+    post: (_, args) => {
+      const link = {
+        id: links.length,
+        description: args.description,
+        url: args.url,
+      }
+      links.push(link)
+      return link
+    }
   },
   Link: {
     id: (parent) => parent.id,
