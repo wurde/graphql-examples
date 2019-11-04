@@ -6,6 +6,7 @@
 
 const path = require('path')
 const { GraphQLServer } = require('graphql-yoga')
+const { prisma } = require('./generated/prisma-client')
 
 /**
  * Constants
@@ -35,18 +36,17 @@ let linkID = links.length
 const resolvers = {
   Query: {
     info: () => `This is the API of a Hackernews Clone`,
-    allLinks: () => links,
+    allLinks: (root, args, context, info) => {
+      return context.prisma.links()
+    },
     findLink: (_, args) => links.filter(link =>  link.id === parseInt(args.id))[0]
   },
   Mutation: {
-    createLink: (_, args) => {
-      const link = {
-        id: linkID++,
-        description: args.description,
+    createLink: (root, args, context) => {
+      return context.prisma.createLink({
         url: args.url,
-      }
-      links.push(link)
-      return link
+        description: args.description,
+      })
     },
     updateLink: (_, args) => {
       links = links.map(link => {
