@@ -53,9 +53,9 @@ class Query(graphene.ObjectType):
 
 #
 # Define mutation classes.
+#
 
 class CreateLink(graphene.Mutation):
-#
     id = graphene.Int()
     url = graphene.String()
     description = graphene.String()
