@@ -2,6 +2,7 @@ type Query {
   info: String!
   allLinks: [Link!]!
   allUsers: [User!]!
+  allVotes: [Vote!]!
   findLink(id: ID!): Link
 }
 
@@ -16,6 +17,7 @@ type Mutation {
 
 type Subscription {
   newLink: Link
+  newVote: Vote
 }
 
 type Link {
