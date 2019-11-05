@@ -21,6 +21,7 @@ const port = process.env.PORT || 3000
 const resolvers = {
   Query: require('./resolvers/Query'),
   Mutation: require('./resolvers/Mutation'),
+  Subscription: require('./resolvers/Subscription'),
   User: require('./resolvers/User'),
   Link: require('./resolvers/Link')
 }
