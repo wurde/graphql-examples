@@ -4,6 +4,7 @@ type Query {
   allUsers: [User!]!
   allVotes: [Vote!]!
   findLink(id: ID!): Link
+  feed(filter: String, skip: Int, first: Int): [Link!]!
 }
 
 type Mutation {
