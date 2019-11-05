@@ -17,3 +17,7 @@ exports.url = (parent) => {
 exports.postedBy = (parent, _, context) => {
   return context.prisma.link({ id: parent.id }).postedBy()
 }
+
+exports.votes = (parent, _, context) => {
+  return context.prisma.link({ id: parent.id }).votes()
+}

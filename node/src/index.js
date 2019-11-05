@@ -23,7 +23,8 @@ const resolvers = {
   Mutation: require('./resolvers/Mutation'),
   Subscription: require('./resolvers/Subscription'),
   User: require('./resolvers/User'),
-  Link: require('./resolvers/Link')
+  Link: require('./resolvers/Link'),
+  Vote: require('./resolvers/Vote'),
 }
 
 /**
