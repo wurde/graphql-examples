@@ -3,8 +3,33 @@
  */
 
 import React, { Component } from 'react';
+import { Mutation } from 'react-apollo';
+import gql from 'graphql-tag';
 import { AUTH_TOKEN } from '../config/constants';
 import timeDifferenceForDate from '../helpers/timeDifferenceForDate';
+
+/**
+ * Define mutations
+ */
+
+const VOTE_MUTATION = gql`
+  mutation VoteMutation($linkId: ID!) {
+    vote(linkId: $linkId) {
+      id
+      link {
+        votes {
+          id
+          user {
+            id
+          }
+        }
+      }
+      user {
+        id
+      }
+    }
+  }
+`;
 
 /**
  * Define component
@@ -19,11 +44,21 @@ class Link extends Component {
         <div className="flex items-center">
           <span className="gray">{this.props.index + 1}.</span>
           {authToken && (
-            <div className="ml1 gray f11" onClick={() => this._voteForLink()}>
-              ▲
-            </div>
+            <Mutation
+              mutation={VOTE_MUTATION}
+              variables={{ linkId: this.props.link.id }}
+              update={(store, { data: { vote } }) =>
+                this.props.updateStoreAfterVote(store, vote, this.props.link.id)
+              }
+            >
+              {voteMutation => (
+                <div className="ml1 gray f11" onClick={voteMutation}>
+                  ▲
+                </div>
+              )}
+            </Mutation>
           )}
-        </div>
+        </div>{' '}
         <div className="ml1">
           <div>
             {this.props.link.description} ({this.props.link.url})
