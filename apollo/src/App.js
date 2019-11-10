@@ -11,6 +11,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import LinkList from './components/LinkList';
 import CreateLink from './components/CreateLink';
 import Header from './components/Header';
+import Login from './components/Login';
 
 /**
  * Define helpers
@@ -39,6 +40,7 @@ function App() {
             <Switch>
               <Route exact path="/" component={LinkList} />
               <Route exact path="/create" component={CreateLink} />
+              <Route exact path="/login" component={Login} />
             </Switch>
           </div>
         </div>
