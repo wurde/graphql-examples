@@ -7,6 +7,7 @@ import { ApolloProvider } from 'react-apollo';
 import { ApolloClient } from 'apollo-client';
 import { createHttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
+import LinkList from './components/LinkList';
 
 /**
  * Define helpers
@@ -28,9 +29,7 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      <div>
-        Apollo
-      </div>
+      <LinkList />
     </ApolloProvider>
   );
 }
