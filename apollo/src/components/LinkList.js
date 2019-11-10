@@ -125,15 +125,18 @@ class LinkList extends Component {
       document: NEW_VOTES_SUBSCRIPTION
     });
   };
-
+  
   render() {
+    
     return (
       <Query query={FEED_QUERY}>
         {({ loading, data, error, subscribeToMore }) => {
           if (loading) return <div>Fetching</div>;
           if (error) return <div>Error</div>;
-
+          
           this.subscribeToNewLinks(subscribeToMore);
+          this.subscribeToNewVotes(subscribeToMore);
+
           const linksToRender = data.feed.links;
 
           return (
