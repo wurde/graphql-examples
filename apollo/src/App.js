@@ -8,6 +8,8 @@ import { ApolloClient } from 'apollo-client';
 import { createHttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { setContext } from 'apollo-link-context';
+import { AUTH_TOKEN } from './config/constants';
 import LinkList from './components/LinkList';
 import CreateLink from './components/CreateLink';
 import Header from './components/Header';
@@ -21,10 +23,20 @@ const httpLink = createHttpLink({
   uri: 'http://localhost:4000'
 })
 
+const authLink = setContext((_, { headers }) => {
+  const token = localStorage.getItem(AUTH_TOKEN);
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : ''
+    }
+  };
+});
+
 const client = new ApolloClient({
-  link: httpLink,
+  link: authLink.concat(httpLink),
   cache: new InMemoryCache()
-})
+});
 
 /**
  * Define component
