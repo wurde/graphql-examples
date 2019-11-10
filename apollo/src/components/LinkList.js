@@ -11,7 +11,7 @@ import Link from './Link';
  * Define queries
  */
 
-const FEED_QUERY = gql`
+export const FEED_QUERY = gql`
   {
     feed {
       links {
